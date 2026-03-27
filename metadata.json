@@ -1,0 +1,9 @@
+{
+  "name": "Nexus Brand - Portfolio & Course Platform",
+  "description": "A futuristic personal brand website featuring a 3D portfolio, service marketplace, and secure course platform.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ]
+}

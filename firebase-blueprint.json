@@ -1,0 +1,109 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "User account information and purchased courses.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string", "format": "uri" },
+        "purchasedCourses": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "List of course IDs purchased by the user"
+        },
+        "role": { "type": "string", "enum": ["user", "admin"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "Course": {
+      "title": "Course",
+      "description": "Digital products and courses for sale.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "price": { "type": "number" },
+        "thumbnail": { "type": "string", "format": "uri" },
+        "content": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": { "type": "string" },
+              "videoUrl": { "type": "string", "format": "uri" },
+              "pdfUrl": { "type": "string", "format": "uri" }
+            }
+          }
+        },
+        "category": { "type": "string", "enum": ["SEO", "Digital Marketing", "Web Development"] }
+      },
+      "required": ["id", "title", "price"]
+    },
+    "Service": {
+      "title": "Service",
+      "description": "Professional services offered.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "price": { "type": "number" },
+        "icon": { "type": "string" }
+      },
+      "required": ["id", "title", "price"]
+    },
+    "Project": {
+      "title": "Project",
+      "description": "Portfolio items.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "image": { "type": "string", "format": "uri" },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "link": { "type": "string", "format": "uri" }
+      },
+      "required": ["id", "title"]
+    },
+    "ContactMessage": {
+      "title": "Contact Message",
+      "description": "Messages from the contact form.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "message": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "email", "message"]
+    }
+  },
+  "firestore": {
+    "/users/{uid}": {
+      "schema": "UserProfile",
+      "description": "User profiles and permissions."
+    },
+    "/courses/{courseId}": {
+      "schema": "Course",
+      "description": "Available courses."
+    },
+    "/services/{serviceId}": {
+      "schema": "Service",
+      "description": "Available services."
+    },
+    "/projects/{projectId}": {
+      "schema": "Project",
+      "description": "Portfolio projects."
+    },
+    "/messages/{messageId}": {
+      "schema": "ContactMessage",
+      "description": "Inbound contact form submissions."
+    }
+  }
+}
